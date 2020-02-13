@@ -1,9 +1,16 @@
 import React from "react";
-// import something
-// import another thing
+import { todos } from "../src/data/todos";
+import Todo from "./components/todos/todos";
+
 
 function App() {
-  return <div className="App">{/* complete me */}</div>;
+  return (
+    <div className="App">
+      <Todo todo={todos} showCompleted={true}/>
+      <Todo todo={todos} showCompleted={false}/>
+
+    </div>
+  );
 }
 
 export default App;

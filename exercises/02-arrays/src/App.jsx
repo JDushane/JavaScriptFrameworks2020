@@ -1,5 +1,5 @@
 import React from "react";
-// import something
+import {images} from "../src/images/images"
 import "./App.css";
 
 function App() {

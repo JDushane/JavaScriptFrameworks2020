@@ -1,9 +1,15 @@
 import React from "react";
 import "./App.css";
-// import something here
+import Welcome from "../src/components/welcome"
 
 function App() {
-  return <div className="App">{/* Complete me */}</div>;
+  return ( 
+    <div className="App">
+      <Welcome name="Jamal"/>
+      <Welcome name="Jamal"/>
+      <Welcome />
+    </div>
+  )
 }
 
 export default App;
