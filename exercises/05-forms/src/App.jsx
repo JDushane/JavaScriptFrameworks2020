@@ -1,11 +1,38 @@
 import React, { useState } from "react";
 import "./App.css";
-// Import data from "assets/countries.json" and "assets/states.json" here
+import countries from './assets/countries.json';
+import states from './assets/states.json'
 
 function App() {
-  return (
-    <form className="container mt-4">
-      {/* You will need to handle form submission */}
+  function Form(){
+    const [values, setValues] = useState({
+      firstName: '',
+      lastName: '',
+      addressLine1: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      country: '',
+      submitted: false
+    });
+
+    const handleChange = e =>{
+      setValues({
+        ...values,
+        [e.target.name]: e.target.value
+      })
+    }
+    const handleSubmit = e =>{
+      e.preventDefault();
+      setValues({
+        ...values,
+        submitted: true
+      })
+    }
+    
+    return(
+      <form className="container mt-4" onSubmit={handleSubmit}>
+      {}
       <div className="form-group">
         <label htmlFor="firstName" className="control-label">
           First Name
@@ -15,6 +42,8 @@ function App() {
           name="firstName"
           type="text"
           className="form-control"
+          value={values.firstName}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group">
@@ -26,6 +55,8 @@ function App() {
           name="lastName"
           type="text"
           className="form-control"
+          value={values.lastName}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group">
@@ -37,6 +68,8 @@ function App() {
           name="addressLine1"
           type="text"
           className="form-control"
+          value={values.addressLine1}
+          onChange={handleChange}
         />
         <p className="help-block text-muted">
           Street Address, P.O. Box, Company Name, C/O
@@ -47,14 +80,23 @@ function App() {
         <label htmlFor="city" className="control-label">
           City / Town
         </label>
-        <input id="city" name="city" type="text" className="form-control" />
+        <input id="city" name="city" type="text" className="form-control" 
+          value={values.city}
+          onChange={handleChange}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="state" className="control-label">
           State / Province / Region
         </label>
-        {/* Loop through the states you imported here */}
-        <select id="state" name="state" className="form-control" />
+        <select id="state" name="state" className="form-control"
+          value={values.states}
+          onChange={handleChange}>
+        {states.map((states, index)=>(
+            <option value={states} name={states}>{states}</option>
+          
+        ))}
+        </select>
       </div>
 
       <div className="form-group">
@@ -66,6 +108,8 @@ function App() {
           name="postalCode"
           type="text"
           className="form-control"
+          value={values.postalCode}
+          onChange={handleChange}
         />
       </div>
 
@@ -74,7 +118,14 @@ function App() {
           Country
         </label>
         {/* Loop through the countries you imported here */}
-        <select id="country" name="country" className="form-control" />
+        <select id="country" name="country" className="form-control"
+          value={values.country}
+          onChange={handleChange}>
+        {countries.map((countries, index)=>(
+            <option value={countries}>{countries}</option>
+          
+        ))}
+        </select>
       </div>
       <button type="submit" className="btn btn-primary">
         Submit
@@ -84,15 +135,31 @@ function App() {
        * Find a way to only display this once the form has been submitted.
        * Hint: You will need to change "false" below with something else
        */}
-      {false && (
+      {values.submitted && (
         <div className="card card-body bg-light mt-4 mb-4">
           Results:
           <ul className="list-unstyled mb-0">
-            {/* Add <li></li> tags here */}
+            {
+              <>
+              <li>{values.firstName}</li>
+              <li>{values.lastName}</li>
+              <li>{values.addressLine1}</li>
+              <li>{values.city}</li>
+              <li>{values.state}</li>
+              <li>{values.postalCode}</li>
+              <li>{values.country}</li>
+              </>
+            }
           </ul>
         </div>
       )}
     </form>
+    );
+  }
+  
+  
+  return (
+    Form()
   );
 }
 
